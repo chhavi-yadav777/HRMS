@@ -5,10 +5,10 @@ import {
   DialogClose,
   DialogContent,
   DialogDescription,
-  DialogFooter,
+  DialogFooter, 
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
+  DialogTrigger, 
 } from "@/components/ui/dialog";
 import { Field, FieldGroup } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
@@ -27,8 +27,10 @@ export default function Employees() {
 
   const [employees, setEmployees] = useState([]);
   const [open, setOpen] = useState(false);
+  const [editOpen, seteditOpen] = useState(false);
 
   const handleChange = (e) => {
+    console.log("")
     const { name, value } = e.target;
 
     updateEmpdata((prevData) => ({
@@ -140,10 +142,10 @@ export default function Employees() {
               </Field>
 
               <Field>
-                <Label htmlFor="username">Designation</Label>
+                <Label htmlFor="designation">Designation</Label>
                 <Input
-                  id="username"
-                  name="username"
+                  id="designation"
+                  name="designation"
                   value={empdata.designation}
                   onChange={handleChange}
                 />
@@ -166,7 +168,7 @@ export default function Employees() {
       </div>
 
       
-      <div className="mx-auto w-[80%] overflow-x-auto rounded-lg border bg-white shadow-sm">
+      <div className="mx-auto w-[100%] overflow-x-auto rounded-lg border bg-white shadow-sm">
         <table className="w-full border-collapse">
           <thead>
             <tr className="bg-gray-100">
@@ -180,6 +182,12 @@ export default function Employees() {
               <th className="border border-gray-300 p-3 text-left">DOB</th>
               <th className="border border-gray-300 p-3 text-left">
                 Department
+              </th>
+              <th className="border border-gray-300 p-3 text-left">
+                Designation
+              </th>
+              <th className="border border-gray-300 p-3 text-left">
+                 Edit
               </th>
             </tr>
           </thead>
@@ -215,6 +223,109 @@ export default function Employees() {
                   </td>
                   <td className="border border-gray-300 p-3">
                     {employee.designation}
+                  </td>
+                  <td className="border brder-gray-300 p-3">
+                    <Dialog open={editOpen} onOpenChange={seteditOpen}>
+          <DialogTrigger asChild>
+            <Button>Edit</Button>
+          </DialogTrigger>
+
+          <DialogContent className="max-h-[500px] sm:max-w-sm overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle>Edit</DialogTitle>
+              <DialogDescription>
+                Enter employee details and save them.
+              </DialogDescription>
+            </DialogHeader>
+
+            <FieldGroup>
+              <Field>
+                <Label htmlFor="name">Employee Name</Label>
+                <Input
+                  id="name"
+                  name="name"
+                  value={empdata.name}
+                  onChange={handleChange}
+                />
+              </Field>
+
+              <Field>
+                <Label htmlFor="username">Username</Label>
+                <Input
+                  id="username"
+                  name="username"
+                  value={empdata.username}
+                  onChange={handleChange}
+                />
+              </Field>
+
+              <Field>
+                <Label htmlFor="phone">Phone</Label>
+                <Input
+                  id="phone"
+                  name="phone"
+                  type="tel"
+                  value={empdata.phone}
+                  onChange={handleChange}
+                />
+              </Field>
+
+              <Field>
+                <Label htmlFor="address">Address</Label>
+                <Input
+                  id="address"
+                  name="address"
+                  value={empdata.address}
+                  onChange={handleChange}
+                />
+              </Field>
+
+              <Field>
+                <Label htmlFor="dob">Date of Birth</Label>
+                <Input
+                  id="dob"
+                  name="dob"
+                  type="date"
+                  value={empdata.dob}
+                  onChange={handleChange}
+                />
+              </Field>
+
+              <Field>
+                <Label htmlFor="department">Department</Label>
+                <Input
+                  id="department"
+                  name="department"
+                  value={empdata.department}
+                  onChange={handleChange}
+                />
+              </Field>
+
+              <Field>
+                <Label htmlFor="designation">Designation</Label>
+                <Input
+                  id="designation"
+                  name="designation"
+                  value={empdata.designation}
+                  onChange={handleChange}
+                />
+              </Field>
+            </FieldGroup>
+
+            <DialogFooter>
+              <DialogClose asChild>
+                <Button type="button" variant="outline">
+                  Cancel
+                </Button>
+              </DialogClose>
+
+              <Button type="button" onClick={handleSubmit}>
+                Save Employee
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+                    
                   </td>
                 </tr>
               ))
